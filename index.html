@@ -1,0 +1,1582 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/png" href="DNM_Fav_01.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DNM Design</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Jost', sans-serif;
+            background-color: #ffffff;
+            color: #8e7e6e;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        .hero {
+            position: relative;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        .hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 750vh;
+            height: 100%;
+            background-image: url('PhotoSlider_01.jpg');
+            background-size: 375vh 100%;
+            background-repeat: repeat-x;
+            background-position: 0 center;
+            z-index: 0;
+            animation: scrollBackground 180s linear infinite;
+        }
+
+        @keyframes scrollBackground {
+            0% {
+                transform: translateX(0);
+            }
+            100% {
+                transform: translateX(-375vh);
+            }
+        }
+
+        .content-wrapper {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            margin-top: 50px;
+        }
+
+        .content-box {
+            background-color: rgba(255, 255, 255, 0.75);
+            padding: 3rem 4rem;
+            border-radius: 0;
+            max-width: 600px;
+            width: 72%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .next-section {
+            background-color: rgba(141, 126, 110, 0.3);
+            width: 100%;
+            scroll-margin-top: 86px;
+        }
+
+        .about-section {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5rem;
+            padding: 5rem 6rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .about-photo {
+            flex-shrink: 0;
+            width: 340px;
+            transform: translateX(-80px);
+            opacity: 0;
+            transition: transform 0.9s cubic-bezier(0.25, 0.46, 0.45, 0.94), opacity 0.9s ease;
+        }
+
+        .about-photo img {
+            width: 100%;
+            height: auto;
+            border-radius: 12px;
+            display: block;
+        }
+
+        .about-text {
+            flex: 1;
+            max-width: 620px;
+            transform: translateX(80px);
+            opacity: 0;
+            transition: transform 0.9s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.15s, opacity 0.9s ease 0.15s;
+        }
+
+        .about-photo.in-view,
+        .about-text.in-view {
+            transform: translateX(0);
+            opacity: 1;
+        }
+
+        .about-text hr {
+            border: none;
+            border-top: 2px solid #000;
+            margin-bottom: 2rem;
+        }
+
+        .about-text p {
+            font-size: 1rem;
+            font-weight: 400;
+            line-height: 1.75;
+            color: #8e7e6e;
+            margin-bottom: 1.5rem;
+        }
+
+        .about-text p:last-child {
+            margin-bottom: 0;
+        }
+
+        #moods {
+            scroll-margin-top: 86px;
+        }
+
+        .moods-section {
+            background-color: #ffffff;
+            width: 100%;
+            padding: 8rem 6rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .moods-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            font-weight: 400;
+            color: #000;
+            letter-spacing: 0.02em;
+            margin-bottom: 0.25rem;
+        }
+
+        .moods-title-wrap {
+            display: inline-block;
+            margin-bottom: 3.5rem;
+        }
+
+        .moods-title-rule {
+            border: none;
+            border-top: 3px solid #000;
+            width: 100%;
+            margin: 0;
+        }
+
+        .moods-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3.5rem 3rem;
+        }
+
+        .mood-item {
+            transform: translateY(60px);
+            opacity: 0;
+            transition: transform 0.9s cubic-bezier(0.25, 0.46, 0.45, 0.94), opacity 0.9s ease;
+        }
+
+        .mood-item.in-view {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .mood-item img {
+            width: 100%;
+            height: auto;
+            display: block;
+            margin-bottom: 1.25rem;
+        }
+
+        .mood-item h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            font-weight: 400;
+            color: #000;
+            letter-spacing: 0.02em;
+            border-bottom: 2px solid #000;
+            display: inline-block;
+            padding-bottom: 0.1rem;
+            margin-bottom: 1rem;
+        }
+
+        .mood-item p {
+            font-size: 0.95rem;
+            line-height: 1.75;
+            color: #8e7e6e;
+        }
+
+        @media (max-width: 900px) {
+            .moods-section {
+                padding: 5rem 2rem;
+            }
+
+            .moods-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .about-section {
+                flex-direction: column;
+                padding: 3rem 2rem;
+                gap: 2rem;
+            }
+
+            .about-photo {
+                width: 100%;
+                max-width: 340px;
+                margin: 0 auto;
+            }
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 4rem;
+            font-weight: 400;
+            color: #000;
+            letter-spacing: 0.2em;
+            text-align: center;
+            margin-bottom: 0;
+            margin-top: 0;
+            width: 100%;
+        }
+
+        .subtitle {
+            font-size: 1rem;
+            font-weight: 400;
+            letter-spacing: 0.2em;
+            text-align: center;
+            margin-top: 1rem;
+            color: #8d7e6e;
+        }
+
+        .construction {
+            font-size: 1.5rem;
+            font-weight: 300;
+            letter-spacing: 0.1em;
+            text-align: center;
+            color: #8d7e6e;
+            padding: 0.75rem 2rem;
+            display: inline-block;
+        }
+
+        .form-intro {
+            font-size: 0.85rem;
+            font-weight: 300;
+            letter-spacing: 0.05em;
+            color: #8d7e6e;
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+
+        .email-form {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 1rem;
+            margin-top: 0;
+            margin-left: auto;
+            margin-right: auto;
+            width: 100%;
+            max-width: 320px;
+        }
+
+        .email-form input[type="text"],
+        .email-form input[type="email"] {
+            padding: 0.75rem 1.5rem;
+            font-size: 0.9rem;
+            border: 1px solid #000;
+            background-color: #fff;
+            color: #000;
+            font-family: 'Jost', sans-serif;
+            letter-spacing: 0.05em;
+            width: 100%;
+            transition: all 0.3s ease;
+        }
+
+        .email-form input[type="text"]:focus,
+        .email-form input[type="email"]:focus,
+        .email-form textarea:focus {
+            outline: none;
+            border-color: #666;
+        }
+
+        .email-form input[type="text"]::placeholder,
+        .email-form input[type="email"]::placeholder,
+        .email-form textarea::placeholder {
+            color: #999;
+        }
+
+        .email-form textarea {
+            padding: 0.75rem 1.5rem;
+            font-size: 0.9rem;
+            border: 1px solid #000;
+            background-color: #fff;
+            color: #000;
+            font-family: 'Jost', sans-serif;
+            letter-spacing: 0.05em;
+            width: 100%;
+            resize: vertical;
+            transition: all 0.3s ease;
+        }
+
+        .email-form button {
+            padding: 0.75rem 2rem;
+            font-size: 0.9rem;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            background-color: #000;
+            color: #fff;
+            border: 1px solid #000;
+            cursor: pointer;
+            font-family: 'Jost', sans-serif;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+
+        .email-form button:hover {
+            background-color: #fff;
+            color: #000;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            padding: 2rem;
+        }
+
+        .social-links a {
+            color: #8e7e6e;
+            text-decoration: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .social-links a:hover {
+            opacity: 0.6;
+        }
+
+        .social-links svg {
+            width: 32px;
+            height: 32px;
+        }
+
+        .scroll-arrow {
+            display: flex;
+            justify-content: center;
+            margin-top: 1.5rem;
+            animation: bounce 2s ease-in-out infinite;
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .scroll-arrow svg {
+            width: 28px;
+            height: 28px;
+            opacity: 0.5;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(10px); }
+        }
+
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: #ffffff;
+            z-index: 100;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .header-logo {
+            height: 54px;
+            width: auto;
+            flex-shrink: 0;
+        }
+
+        nav {
+            display: flex;
+            gap: 2.5rem;
+        }
+
+        nav a {
+            font-family: 'Jost', sans-serif;
+            font-size: 0.8rem;
+            font-weight: 400;
+            letter-spacing: 0.2em;
+            color: #8d7e6e;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        nav a:hover {
+            color: #000;
+        }
+
+        nav a.active {
+            color: #000;
+        }
+
+        /* ── HAMBURGER BUTTON ── */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 24px;
+            height: 18px;
+            cursor: pointer;
+            background: none;
+            border: none;
+            padding: 0;
+            z-index: 200;
+        }
+
+        .hamburger span {
+            display: block;
+            width: 100%;
+            height: 1.5px;
+            background: #8d7e6e;
+            transition: all 0.35s ease;
+            transform-origin: center;
+        }
+
+        /* Animate to X when open */
+        .hamburger.open span:nth-child(1) {
+            transform: translateY(8.25px) rotate(45deg);
+        }
+        .hamburger.open span:nth-child(2) {
+            opacity: 0;
+            transform: scaleX(0);
+        }
+        .hamburger.open span:nth-child(3) {
+            transform: translateY(-8.25px) rotate(-45deg);
+        }
+
+        @media (max-width: 768px) {
+            header {
+                padding: 0.75rem 1rem;
+                flex-wrap: nowrap;
+                justify-content: space-between;
+                align-items: center;
+            }
+
+            .header-logo {
+                height: 42px;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            nav {
+                display: none;
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100vh;
+                background: #faf8f4;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                gap: 2.5rem;
+                z-index: 150;
+            }
+
+            nav.open {
+                display: flex;
+            }
+
+            nav a {
+                font-size: 1rem;
+                letter-spacing: 0.3em;
+            }
+        }
+            .logo {
+                font-size: 2.5rem;
+                letter-spacing: 0.2em;
+            }
+
+            .subtitle {
+                font-size: 0.8rem;
+            }
+
+            .content-box {
+                width: 85%;
+                padding: 2rem 1.5rem;
+            }
+
+            .email-form {
+                margin-top: 2rem;
+                padding: 0;
+                max-width: 100%;
+            }
+
+            .social-links {
+                gap: 1.5rem;
+            }
+
+            .social-links svg {
+                width: 28px;
+                height: 28px;
+            }
+        }
+    </style>
+
+    <style>
+        /* ── PROJECTS SECTION ── */
+        #projects {
+            scroll-margin-top: 86px;
+        }
+
+        .projects-section-wrap {
+            background-color: rgba(141, 126, 110, 0.3);
+            width: 100%;
+        }
+
+        .projects-section {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 8rem 6rem;
+        }
+
+        .projects-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            font-weight: 400;
+            color: #000;
+            letter-spacing: 0.02em;
+            margin-bottom: 0.25rem;
+        }
+
+        .projects-title-wrap {
+            display: inline-block;
+            margin-bottom: 3.5rem;
+        }
+
+        .projects-title-rule {
+            border: none;
+            border-top: 3px solid #000;
+            width: 100%;
+            margin: 0;
+        }
+
+        .projects-mosaic {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+        }
+
+        .projects-mosaic a {
+            display: block;
+            aspect-ratio: 1 / 1;
+            background-color: #000;
+            overflow: hidden;
+            transition: opacity 0.3s ease;
+        }
+
+        .projects-mosaic a:hover {
+            opacity: 0.7;
+        }
+
+        .projects-mosaic a img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        @media (max-width: 900px) {
+            .projects-section {
+                padding: 5rem 2rem;
+            }
+            .projects-mosaic {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        /* ── LIGHTBOX ── */
+        #lb-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            z-index: 99998;
+            background: rgba(42, 36, 30, 0.95);
+            align-items: center;
+            justify-content: center;
+        }
+        #lb-overlay.lb-active {
+            display: flex;
+        }
+        #lb-img-wrap {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            max-width: 90vw;
+            max-height: 90vh;
+        }
+        #lb-img {
+            max-width: 90vw;
+            max-height: 85vh;
+            object-fit: contain;
+            display: block;
+            user-select: none;
+        }
+        #lb-top-bar {
+            position: fixed;
+            top: 1.25rem;
+            left: 1.5rem;
+            right: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            z-index: 99999;
+            pointer-events: none;
+        }
+        #lb-prev-project,
+        #lb-next-project {
+            background: none;
+            border: 1px solid rgba(255,255,255,0.6);
+            color: rgba(255,255,255,0.7);
+            font-family: 'Jost', sans-serif;
+            font-size: 0.7rem;
+            letter-spacing: 0.18em;
+            padding: 0.4rem 0.9rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            white-space: nowrap;
+            pointer-events: all;
+        }
+        #lb-prev-project:hover,
+        #lb-next-project:hover {
+            background: rgba(255,255,255,0.1);
+            color: #fff;
+            border-color: #fff;
+        }
+        #lb-top-right {
+            display: flex;
+            align-items: center;
+            gap: 1.25rem;
+            pointer-events: all;
+            margin-left: auto;
+        }
+        #lb-close {
+            background: none;
+            border: none;
+            color: #fff;
+            font-size: 2rem;
+            cursor: pointer;
+            opacity: 0.7;
+            transition: opacity 0.2s;
+            line-height: 1;
+        }
+        #lb-close:hover { opacity: 1; }
+        .lb-arrow {
+            position: fixed;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: #fff;
+            font-size: 2.5rem;
+            cursor: pointer;
+            opacity: 0.5;
+            transition: opacity 0.2s;
+            z-index: 99999;
+            padding: 1rem;
+            line-height: 1;
+        }
+        .lb-arrow:hover { opacity: 1; }
+        #lb-prev { left: 1rem; }
+        #lb-next { right: 1rem; }
+        #lb-counter {
+            position: fixed;
+            bottom: 7rem;
+            left: 50%;
+            transform: translateX(-50%);
+            color: rgba(255,255,255,0.5);
+            font-family: 'Jost', sans-serif;
+            font-size: 0.75rem;
+            letter-spacing: 0.2em;
+            white-space: nowrap;
+        }
+        #lb-thumbs {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 6px;
+            padding: 1rem 1.5rem;
+            background: linear-gradient(transparent, rgba(28, 23, 18, 0.85));
+            overflow-x: auto;
+            scrollbar-width: none;
+        }
+        #lb-thumbs::-webkit-scrollbar { display: none; }
+        .lb-thumb {
+            flex-shrink: 0;
+            width: 56px;
+            height: 56px;
+            object-fit: cover;
+            cursor: pointer;
+            opacity: 0.45;
+            transition: opacity 0.2s, outline 0.2s;
+            outline: 2px solid transparent;
+        }
+        .lb-thumb:hover { opacity: 0.8; }
+        .lb-thumb.lb-thumb-active {
+            opacity: 1;
+            outline: 2px solid #fff;
+        }
+    </style>
+
+
+    <style>
+        /* ── SERVICES SECTION ── */
+        #services {
+            scroll-margin-top: 86px;
+        }
+
+        .services-section-wrap {
+            background-color: #ffffff;
+            width: 100%;
+        }
+
+        .services-section {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 8rem 6rem;
+        }
+
+        .services-title-wrap {
+            display: inline-block;
+            margin-bottom: 3.5rem;
+        }
+
+        .services-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            font-weight: 400;
+            color: #000;
+            letter-spacing: 0.02em;
+            margin-bottom: 0.25rem;
+        }
+
+        .services-title-rule {
+            border: none;
+            border-top: 3px solid #000;
+            width: 100%;
+            margin: 0;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3.5rem 3rem;
+        }
+
+        .service-item h3 {
+            color: #000;
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            font-weight: 400;
+            letter-spacing: 0.02em;
+            border-bottom: 2px solid #000;
+            display: inline-block;
+            padding-bottom: 0.1rem;
+            margin-bottom: 1rem;
+        }
+
+        .service-item p {
+            font-family: 'Jost', sans-serif;
+            font-size: 0.95rem;
+            line-height: 1.75;
+            color: #8e7e6e;
+            margin-bottom: 1rem;
+        }
+
+        .service-item p:last-child {
+            margin-bottom: 0;
+        }
+
+        .service-item {
+            transform: translateY(60px);
+            opacity: 0;
+            transition: transform 0.9s cubic-bezier(0.25, 0.46, 0.45, 0.94), opacity 0.9s ease;
+        }
+
+        .service-item.in-view {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        @media (max-width: 900px) {
+            .services-section {
+                padding: 5rem 2rem;
+            }
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+
+
+    <style>
+        /* ── CONTACT SECTION ── */
+        #contact {
+            scroll-margin-top: 86px;
+        }
+
+        .contact-section-wrap {
+            background-color: rgba(142, 126, 110, 0.3);
+            width: 100%;
+        }
+
+        .contact-section {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 8rem 2rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .contact-title-wrap {
+            display: inline-block;
+            margin-bottom: 3.5rem;
+        }
+
+        .contact-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            font-weight: 400;
+            letter-spacing: 0.02em;
+            margin-bottom: 0.25rem;
+            color: #000;
+        }
+
+        .contact-title-rule {
+            border: none;
+            border-top: 3px solid #000;
+            width: 100%;
+            margin: 0;
+        }
+
+        @media (max-width: 768px) {
+            .contact-section {
+                padding: 5rem 2rem;
+            }
+        }
+    </style>
+
+    <!-- ═══════════════════════════════════════════
+         DNM LOADER — scoped styles (dnm-loader- prefix)
+         ═══════════════════════════════════════════ -->
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=Jost:wght@200;300;400&display=swap');
+
+      :root {
+        --dnml-cream: #faf8f4;
+        --dnml-sand:  #d6cfc2;
+        --dnml-warm:  #b5a48e;
+        --dnml-sage:  #9daa97;
+        --dnml-clay:  #c4956a;
+        --dnml-dust:  #b8ad9e;
+      }
+
+      body.dnm-loader-active {
+        overflow: hidden;
+      }
+
+      #dnm-loader-overlay {
+        position: fixed;
+        inset: 0;
+        z-index: 99999;
+        background: #faf8f4;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: 'Jost', sans-serif;
+      }
+
+      #dnm-loader-overlay::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+        opacity: 0.028;
+        pointer-events: none;
+        z-index: 0;
+      }
+
+      .dnm-loader-bg-circle {
+        position: absolute;
+        width: 600px;
+        height: 600px;
+        border-radius: 50%;
+        background: radial-gradient(circle at 40% 40%, #ede8df, transparent 70%);
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) scale(0.7);
+        opacity: 0;
+        animation: dnml-circleReveal 1.25s cubic-bezier(0.16, 1, 0.3, 1) 0.05s forwards;
+        pointer-events: none;
+      }
+
+      @keyframes dnml-circleReveal {
+        to { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+      }
+
+      #dnm-loader-stage {
+        position: relative;
+        z-index: 10;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 52px;
+        text-align: center;
+        transition: opacity 0.9s ease;
+      }
+
+      #dnm-loader-stage.dnm-loader-fade-out {
+        opacity: 0;
+      }
+
+      .dnm-loader-logo-zone {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+        animation: dnml-riseIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.15s both;
+      }
+
+      .dnm-loader-logo-wrap {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .dnm-loader-logo-wrap img {
+        max-height: 80px;
+        max-width: 220px;
+        width: auto;
+        height: auto;
+      }
+
+      @keyframes dnml-riseIn {
+        from { opacity: 0; transform: translateY(16px); }
+        to   { opacity: 1; transform: translateY(0); }
+      }
+
+      .dnm-loader-spinner {
+        position: relative;
+        width: 52px;
+        height: 52px;
+        animation: dnml-riseIn 0.5s ease 0.4s both;
+      }
+
+      .dnm-loader-petal {
+        position: absolute;
+        width: 11px;
+        height: 22px;
+        border-radius: 50% 50% 50% 0;
+        top: 50%;
+        left: 50%;
+        opacity: 0.25;
+      }
+
+      .dnm-loader-petal:nth-child(1) { background: var(--dnml-sage); transform: rotate(0deg)   translate(13px,-11px); animation: dnml-petalPulse 1.2s ease-in-out 0.0s infinite; }
+      .dnm-loader-petal:nth-child(2) { background: var(--dnml-clay); transform: rotate(45deg)  translate(13px,-11px); animation: dnml-petalPulse 1.2s ease-in-out 0.15s infinite; }
+      .dnm-loader-petal:nth-child(3) { background: var(--dnml-sage); transform: rotate(90deg)  translate(13px,-11px); animation: dnml-petalPulse 1.2s ease-in-out 0.3s infinite; }
+      .dnm-loader-petal:nth-child(4) { background: var(--dnml-dust); transform: rotate(135deg) translate(13px,-11px); animation: dnml-petalPulse 1.2s ease-in-out 0.45s infinite; }
+      .dnm-loader-petal:nth-child(5) { background: var(--dnml-sage); transform: rotate(180deg) translate(13px,-11px); animation: dnml-petalPulse 1.2s ease-in-out 0.6s infinite; }
+      .dnm-loader-petal:nth-child(6) { background: var(--dnml-clay); transform: rotate(225deg) translate(13px,-11px); animation: dnml-petalPulse 1.2s ease-in-out 0.75s infinite; }
+      .dnm-loader-petal:nth-child(7) { background: var(--dnml-sage); transform: rotate(270deg) translate(13px,-11px); animation: dnml-petalPulse 1.2s ease-in-out 0.9s infinite; }
+      .dnm-loader-petal:nth-child(8) { background: var(--dnml-dust); transform: rotate(315deg) translate(13px,-11px); animation: dnml-petalPulse 1.2s ease-in-out 1.05s infinite; }
+
+      @keyframes dnml-petalPulse {
+        0%, 100% { opacity: 0.2; }
+        50%       { opacity: 0.75; }
+      }
+
+      .dnm-loader-dots-wrap {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+        animation: dnml-riseIn 0.5s ease 0.5s both;
+      }
+
+      .dnm-loader-dots {
+        display: flex;
+        gap: 12px;
+        align-items: center;
+      }
+
+      .dnm-loader-dot {
+        width: 5px;
+        height: 5px;
+        border-radius: 50%;
+        background: var(--dnml-warm);
+        animation: dnml-dotPulse 0.9s ease-in-out infinite;
+      }
+
+      .dnm-loader-dot:nth-child(1) { animation-delay: 0.0s; }
+      .dnm-loader-dot:nth-child(2) { animation-delay: 0.1s; width: 7px; height: 7px; background: var(--dnml-sand); }
+      .dnm-loader-dot:nth-child(3) { animation-delay: 0.2s; }
+      .dnm-loader-dot:nth-child(4) { animation-delay: 0.3s; width: 4px; height: 4px; background: var(--dnml-sand); }
+      .dnm-loader-dot:nth-child(5) { animation-delay: 0.4s; }
+
+      @keyframes dnml-dotPulse {
+        0%, 100% { opacity: 0.25; transform: scale(0.9); }
+        50%       { opacity: 1;    transform: scale(1.15); }
+      }
+
+      #dnm-loader-status {
+        font-size: 8px;
+        font-weight: 300;
+        letter-spacing: 0.5em;
+        color: var(--dnml-warm);
+        text-transform: uppercase;
+        animation: dnml-textFade 1s ease 0.6s both;
+        transition: opacity 0.6s ease;
+      }
+
+      @keyframes dnml-textFade {
+        from { opacity: 0; }
+        to   { opacity: 1; }
+      }
+    </style>
+</head>
+<body>
+
+    <!-- ═══════════════════════════════════════════
+         DNM LOADER OVERLAY
+         ═══════════════════════════════════════════ -->
+    <div id="dnm-loader-overlay">
+      <div class="dnm-loader-bg-circle"></div>
+      <div id="dnm-loader-stage">
+        <div class="dnm-loader-logo-zone">
+          <div class="dnm-loader-logo-wrap">
+            <img src="NewLogo_01.png" alt="DNM Design">
+          </div>
+        </div>
+        <div class="dnm-loader-spinner">
+          <div class="dnm-loader-petal"></div>
+          <div class="dnm-loader-petal"></div>
+          <div class="dnm-loader-petal"></div>
+          <div class="dnm-loader-petal"></div>
+          <div class="dnm-loader-petal"></div>
+          <div class="dnm-loader-petal"></div>
+          <div class="dnm-loader-petal"></div>
+          <div class="dnm-loader-petal"></div>
+        </div>
+        <div class="dnm-loader-dots-wrap">
+          <div class="dnm-loader-dots">
+            <div class="dnm-loader-dot"></div>
+            <div class="dnm-loader-dot"></div>
+            <div class="dnm-loader-dot"></div>
+            <div class="dnm-loader-dot"></div>
+            <div class="dnm-loader-dot"></div>
+          </div>
+          <div id="dnm-loader-status">Curating your space</div>
+        </div>
+      </div>
+    </div>
+
+    <header>
+        <img class="header-logo" src="NewLogo_01.png" alt="DNM Design Logo">
+        <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+        <nav id="mobile-nav">
+            <a href="#about">ABOUT</a>
+            <a href="#moods">MOODBOARDS</a>
+            <a href="#projects">PROJECTS</a>
+            <a href="#services">SERVICES</a>
+            <a href="#contact">CONTACT</a>
+        </nav>
+    </header>
+
+    <div class="hero">
+        <div class="hero-bg"></div>
+        <div class="content-wrapper">
+            <div class="content-box">
+                <div class="logo">DNM DESIGN</div>
+                <div class="subtitle">DANIELLE NICOLE MAGUIRE DESIGN</div>
+
+                <div style="display: flex; justify-content: center; width: 100%; margin-top: 2.5rem;">
+                    <div style="max-width: 500px; text-align: center; width: 100%;">
+                        <p class="form-intro">If you want a quote on a project or have any questions please feel free to reach out here:</p>
+                        <form class="email-form" action="https://formspree.io/f/xzdapkaq" method="POST">
+                            <input type="text" name="firstName" placeholder="First Name" required>
+                            <input type="text" name="lastName" placeholder="Last Name" required>
+                            <textarea name="jobDescription" placeholder="Job Description" rows="4" required></textarea>
+                            <button type="submit">SUBMIT</button>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="social-links">
+                    <a href="https://www.instagram.com/dnm.interiordesign" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                        </svg>
+                    </a>
+                </div>
+
+                <a href="#about" class="scroll-arrow">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="12" y1="5" x2="12" y2="19"></line>
+                        <polyline points="19 12 12 19 5 12"></polyline>
+                    </svg>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="next-section" id="about">
+        <div class="about-section">
+            <div class="about-photo">
+                <img src="Headshot_01.png" alt="Danielle Maguire">
+            </div>
+            <div class="about-text">
+                <hr>
+                <p>Hi! My name Danielle Maguire, a Minneapolis-based designer dedicated to creating functional, elevated, and visually compelling spaces for both commercial and residential environments. With a strong focus on form and function, I work to transform spaces into thoughtfully designed experiences that balance beauty, usability, and lasting impact.</p>
+                <p>My design style leans moody and elegant, layered with rich textures, tonal palettes, and thoughtful patterns. I believe spaces should feel timeless, functional, and inviting—but never too precious. I want your home (or business!) to be a place where people actually live: where friends gather, wine is poured, popcorn is shared, and even the smallest spaces are designed to bring people together.</p>
+                <a href="#moods" class="scroll-arrow" style="margin-top: 2rem;">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="12" y1="5" x2="12" y2="19"></line>
+                        <polyline points="19 12 12 19 5 12"></polyline>
+                    </svg>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div id="moods" style="background-color:#ffffff; width:100%;">
+        <div class="moods-section">
+            <div class="moods-title-wrap">
+                <h2 class="moods-title">MOODBOARDS</h2>
+                <hr class="moods-title-rule">
+            </div>
+            <div class="moods-grid">
+                <div class="mood-item">
+                    <img src="Style_01.jpg" alt="Style 1">
+                    <h3>THE MODERN VILLA</h3>
+                    <p>This mood board feels warm, sunlit, and richly layered, like golden hour in a Mediterranean villa. The veined marble, deep green tile, natural wood, and soft camel tones create a space that feels grounded yet luminous. It's organic, elevated, and quietly radiant. Poetic but Polished. Light moves across veined marble and warm wood, softened by muted greens and brushed brass. Structured yet organic, bold yet comforting. A layered palette designed to feel intentional, luminous, and deeply grounded.</p>
+                </div>
+                <div class="mood-item">
+                    <img src="Style_02.jpg" alt="Style 2">
+                    <h3>MODERN HEIRLOOM</h3>
+                    <p>This mood board feels moody, tailored, and quietly luxurious, like a modern townhouse with old-soul bones. The black marble, warm wood, brass accents, and classic checker tile give it that elevated European feel, while the clean white cabinetry keeps it grounded and timeless. Confident & Sophisticated. Moody neutrals. Clean lines. Warm metals. A study in contrast where heritage details meet modern clarity. Elevated yet inviting, dramatic yet disciplined, a palette that embodies quiet luxury with presence and poise.</p>
+                </div>
+                <div class="mood-item">
+                    <img src="Style_03.jpg" alt="Style 3">
+                    <h3>MODERN MOSAIC</h3>
+                    <p>This mood board feels artful, grounded, and globally inspired, like a collected home layered over time. The deep blue cabinetry, terracotta tile, terrazzo, patterned motif, and warm copper tones create a palette that feels expressive yet anchored. It's bold, but thoughtful. Vibrant, yet balanced. Elevated & Editorial. Rich terracotta, deep indigo, and expressive pattern layered with intention. A balance of structure and artistry, where global influence meets modern clarity. Grounded yet vibrant, bold yet composed, a palette designed to feel curated, soulful, and enduring.</p>
+                </div>
+                <div class="mood-item">
+                    <img src="Style_04.jpg" alt="Style 4">
+                    <h3>VERDANT CALM</h3>
+                    <p>This mood board feels grounded, elevated, and quietly luxurious, like nature brought indoors but refined through clean, modern restraint. A serene balance of organic texture and modern simplicity where deep mossy greens, warm wood tones, aged metal, and soft stone meet to create a space that feels both grounded and quietly elevated. This palette brings the calm of nature indoors, softened by clean lines and understated warmth for a timeless, restorative atmosphere.</p>
+                </div>
+            </div>
+            <a href="#projects" class="scroll-arrow" style="margin-top: 2rem;">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="12" y1="5" x2="12" y2="19"></line>
+                    <polyline points="19 12 12 19 5 12"></polyline>
+                </svg>
+            </a>
+        </div>
+    </div>
+
+
+    <!-- PROJECTS SECTION -->
+    <div class="projects-section-wrap" id="projects">
+        <div class="projects-section">
+            <div class="projects-title-wrap">
+                <h2 class="projects-title">PROJECTS</h2>
+                <hr class="projects-title-rule">
+            </div>
+            <div class="projects-mosaic">
+                <a href="#" class="lb-trigger" data-folder="p1" data-count="8" data-prefix="p1_gallery_"><img src="p1_thumbnail_01.jpg" alt="Project 1"></a>
+                <a href="#" class="lb-trigger" data-folder="p2" data-count="4" data-prefix="p2_gallery_"><img src="p2_thumbnail_01.jpg" alt="Project 2"></a>
+                <a href="#" class="lb-trigger" data-folder="p3" data-count="5" data-prefix="p3_gallery_"><img src="p3_thumbnail_01.jpg" alt="Project 3"></a>
+                <a href="#" class="lb-trigger" data-folder="p4" data-count="6" data-prefix="p4_gallery_"><img src="p4_thumbnail_01.jpg" alt="Project 4"></a>
+                <a href="#" class="lb-trigger" data-folder="p5" data-count="7" data-prefix="p5_gallery_"><img src="p5_thumbnail_01.jpg" alt="Project 5"></a>
+                <a href="#" class="lb-trigger" data-folder="p6" data-count="10" data-prefix="p6_gallery_"><img src="p6_thumbnail_01.jpg" alt="Project 6"></a>
+            </div>
+            <a href="#services" class="scroll-arrow" style="margin-top: 2rem;">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="12" y1="5" x2="12" y2="19"></line>
+                    <polyline points="19 12 12 19 5 12"></polyline>
+                </svg>
+            </a>
+        </div>
+    </div>
+
+    <!-- SERVICES SECTION -->
+    <div class="services-section-wrap" id="services">
+        <div class="services-section">
+            <div class="services-title-wrap">
+                <h2 class="services-title">SERVICES</h2>
+                <hr class="services-title-rule">
+            </div>
+            <div class="services-grid">
+
+                <div class="service-item">
+                    <h3>Design Consulting</h3>
+                    <p>Here to guide you through the "how to make it work," phase by helping focus in on your layout, discussing your personal design aesthetic, and talking through the functionality of each space. I can provide a full assessment of the scope of the project, analyse the issues at hand, create design solutions, and apply the new design structure through project management.</p>
+                </div>
+
+                <div class="service-item">
+                    <h3>2D and 3D Design Presentations</h3>
+                    <p>Present 2D and 3D design presentations to visualize and plan our concept. It is always helpful to see our flow throughout the space from a top-down "birds-eye" view to see how the furniture is laid out, as well as viewing accurate measurements, and technical planning.</p>
+                    <p>With 3D views, this will allow all of my clients to see exactly what the final result should look like. It is more immersive and realistic to see what the space will look like from multiple views, renderings, and getting the overall "feel" of the room.</p>
+                </div>
+
+                <div class="service-item">
+                    <h3>Floor Plans</h3>
+                    <p>I will create a scaled view diagram to show the layout of the space, including furniture, fixtures, walls, windows, doors, etc. This is a key element to ensure everything is proportionally accurate to real life measurements. We always want to make sure we are optimizing the use of each space as well as identify any structural constraints.</p>
+                </div>
+
+                <div class="service-item">
+                    <h3>Accessory &amp; Decor Calls</h3>
+                    <p>This is essentially my "accessorizing package." It is the final phase in transforming a furnished room into a cohesive home that is personalized to each client. I help select placement of art, rugs, pillows, throws, vases, and sculptures, to help introduce color, texture, and most importantly, personality. This phase is what turns a "nice" room into a "gorgeous" one by ensuring every corner feels intentional and complete.</p>
+                </div>
+
+                <div class="service-item">
+                    <h3>Furniture Selections</h3>
+                    <p>Choosing pieces that will balance functionality with aesthetic. Selecting furniture that matches your style while mixing textures and materials to provide depth, quality, durability, and flow. This can be provided through purchasing appointments or digital mood boards.</p>
+                </div>
+
+                <div class="service-item">
+                    <h3>Equipment Planning</h3>
+                    <p>Sourcing functional, durable and aesthetic items from kitchen appliances, to fixtures and lighting. For residential or commercial spaces, it is important to incorporate washers, dryers, refrigerators, sinks, etc. into our design considerations. Same goes for the impact that lighting, cabinetry, and specialized items can make in each room — how will these things help enhance the functionality of daily life.</p>
+                </div>
+
+                <div class="service-item">
+                    <h3>Finish Selections</h3>
+                    <p>I will provide curated plans for all project materials such as flooring, countertops, and hardware to reflect your specific style, budget, and functionality. The core principles for this include establishing a hierarchy with scale, choosing materials based on high-traffic areas, or spaces with children and animals. Applying our budget properly by allocating more on the spaces where "high-touch" items like the counter tops and floors take precedence over things that are easy to replace later if needed.</p>
+                </div>
+
+            </div>
+            <a href="#contact" class="scroll-arrow" style="margin-top: 2rem;">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="12" y1="5" x2="12" y2="19"></line>
+                    <polyline points="19 12 12 19 5 12"></polyline>
+                </svg>
+            </a>
+        </div>
+    </div>
+
+    <!-- CONTACT SECTION -->
+    <div class="contact-section-wrap" id="contact">
+        <div class="contact-section">
+            <div class="contact-title-wrap">
+                <h2 class="contact-title">CONTACT</h2>
+                <hr class="contact-title-rule">
+            </div>
+            <div style="max-width: 500px; text-align: center; width: 100%;">
+                <p class="form-intro">If you want a quote on a project or have any questions please feel free to reach out here:</p>
+                <form class="email-form" action="https://formspree.io/f/xzdapkaq" method="POST">
+                    <input type="text" name="firstName" placeholder="First Name" required>
+                    <input type="text" name="lastName" placeholder="Last Name" required>
+                    <textarea name="jobDescription" placeholder="Job Description" rows="4" required></textarea>
+                    <button type="submit">SUBMIT</button>
+                </form>
+                <div class="social-links">
+                    <a href="https://www.instagram.com/dnm.interiordesign" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════
+         DNM LOADER SCRIPT
+         ═══════════════════════════════════════════ -->
+    <script>
+      (function() {
+        // Lock scroll while loader is active
+        document.body.classList.add('dnm-loader-active');
+
+        // Cycling phrases
+        var phrases = ['Curating your space', 'Crafting the mood', 'Styling details', 'Almost there'];
+        var phraseIdx = 0;
+        var statusEl = document.getElementById('dnm-loader-status');
+
+        var phraseInterval = setInterval(function() {
+          phraseIdx = (phraseIdx + 1) % phrases.length;
+          statusEl.style.opacity = 0;
+          setTimeout(function() {
+            statusEl.textContent = phrases[phraseIdx];
+            statusEl.style.opacity = 1;
+          }, 150);
+        }, 900);
+
+        // Trigger exit on page load
+        window.addEventListener('load', function() {
+          setTimeout(startExit, 1500);
+        });
+
+        function startExit() {
+          clearInterval(phraseInterval);
+          var overlay = document.getElementById('dnm-loader-overlay');
+          var stage   = document.getElementById('dnm-loader-stage');
+
+          // Step 1: fade out content
+          stage.classList.add('dnm-loader-fade-out');
+
+          // Step 2: radial circle expand reveal
+          setTimeout(function() {
+            var cx = window.innerWidth  / 2;
+            var cy = window.innerHeight / 2;
+            var maxR = Math.ceil(Math.sqrt(
+              Math.pow(Math.max(cx, window.innerWidth  - cx), 2) +
+              Math.pow(Math.max(cy, window.innerHeight - cy), 2)
+            )) + 10;
+
+            var duration = 600;
+            var startT   = performance.now();
+
+            function easeInOutCubic(t) {
+              return t < 0.5 ? 4*t*t*t : 1 - Math.pow(-2*t+2, 3)/2;
+            }
+
+            function animateReveal(now) {
+              var t     = Math.min((now - startT) / duration, 1);
+              var eased = easeInOutCubic(t);
+              var r     = eased * maxR;
+
+              overlay.style.webkitMaskImage =
+                'radial-gradient(circle ' + r + 'px at ' + cx + 'px ' + cy + 'px, transparent 60%, black 100%)';
+              overlay.style.maskImage =
+                'radial-gradient(circle ' + r + 'px at ' + cx + 'px ' + cy + 'px, transparent 60%, black 100%)';
+
+              if (t < 1) {
+                requestAnimationFrame(animateReveal);
+              } else {
+                overlay.style.display = 'none';
+                document.body.classList.remove('dnm-loader-active');
+              }
+            }
+
+            requestAnimationFrame(animateReveal);
+          }, 950);
+        }
+      })();
+    </script>
+
+    <script>
+        // Hamburger toggle
+        const hamburger = document.getElementById('hamburger');
+        const mobileNav = document.getElementById('mobile-nav');
+
+        hamburger.addEventListener('click', function() {
+            hamburger.classList.toggle('open');
+            mobileNav.classList.toggle('open');
+        });
+
+        // Close menu when a link is clicked
+        document.querySelectorAll('#mobile-nav a').forEach(link => {
+            link.addEventListener('click', function() {
+                hamburger.classList.remove('open');
+                mobileNav.classList.remove('open');
+            });
+        });
+
+        // Active nav link on click
+        document.querySelectorAll('nav a').forEach(link => {
+            link.addEventListener('click', function() {
+                document.querySelectorAll('nav a').forEach(l => l.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('in-view');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.2 });
+
+        document.querySelectorAll('.about-photo, .about-text').forEach(el => observer.observe(el));
+
+        // Stagger mood items
+        document.querySelectorAll('.service-item').forEach((el, i) => {
+            el.style.transitionDelay = `${i * 0.15}s`;
+            observer.observe(el);
+        });
+
+        document.querySelectorAll('.mood-item').forEach((el, i) => {
+            el.style.transitionDelay = `${i * 0.15}s`;
+            observer.observe(el);
+        });
+    </script>
+    <!-- LIGHTBOX -->
+    <div id="lb-overlay">
+        <div id="lb-top-bar">
+            <button id="lb-prev-project">‹ PREV PROJECT</button>
+            <div id="lb-top-right">
+                <button id="lb-next-project">NEXT PROJECT ›</button>
+                <button id="lb-close" aria-label="Close">&#215;</button>
+            </div>
+        </div>
+        <button class="lb-arrow" id="lb-prev" aria-label="Previous">&#8592;</button>
+        <div id="lb-img-wrap">
+            <img id="lb-img" src="" alt="">
+        </div>
+        <button class="lb-arrow" id="lb-next" aria-label="Next">&#8594;</button>
+        <div id="lb-counter"></div>
+        <div id="lb-thumbs"></div>
+    </div>
+
+    <script>
+        (function() {
+            var overlay      = document.getElementById('lb-overlay');
+            var lbImg        = document.getElementById('lb-img');
+            var lbPrev       = document.getElementById('lb-prev');
+            var lbNext       = document.getElementById('lb-next');
+            var lbClose      = document.getElementById('lb-close');
+            var lbCounter    = document.getElementById('lb-counter');
+            var lbThumbs     = document.getElementById('lb-thumbs');
+            var lbNextProject= document.getElementById('lb-next-project');
+            var lbPrevProject= document.getElementById('lb-prev-project');
+
+            var images = [];
+            var current = 0;
+
+            // Collect all trigger elements in order
+            var triggers = Array.from(document.querySelectorAll('.lb-trigger'));
+            var currentTriggerIdx = 0;
+
+            function buildImages(folder, prefix, count) {
+                var arr = [];
+                for (var i = 1; i <= count; i++) {
+                    var n = i < 10 ? '0' + i : '' + i;
+                    arr.push(prefix + n + '.jpg');
+                }
+                return arr;
+            }
+
+            function buildThumbs() {
+                lbThumbs.innerHTML = '';
+                images.forEach(function(src, i) {
+                    var img = document.createElement('img');
+                    img.src = src;
+                    img.className = 'lb-thumb';
+                    img.addEventListener('click', function() { showImage(i); });
+                    lbThumbs.appendChild(img);
+                });
+            }
+
+            function syncThumbs() {
+                var thumbEls = lbThumbs.querySelectorAll('.lb-thumb');
+                thumbEls.forEach(function(t, i) {
+                    t.classList.toggle('lb-thumb-active', i === current);
+                });
+                if (thumbEls[current]) {
+                    thumbEls[current].scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+                }
+            }
+
+            function showImage(idx) {
+                current = (idx + images.length) % images.length;
+                lbImg.src = images[current];
+                lbCounter.textContent = (current + 1) + ' / ' + images.length;
+                syncThumbs();
+            }
+
+            function openLightbox(triggerIdx, startIdx) {
+                currentTriggerIdx = triggerIdx;
+                var el     = triggers[triggerIdx];
+                var folder = el.dataset.folder;
+                var prefix = el.dataset.prefix;
+                var count  = parseInt(el.dataset.count, 10);
+
+                images = buildImages(folder, prefix, count);
+                buildThumbs();
+                showImage(startIdx || 0);
+                overlay.classList.add('lb-active');
+                document.body.style.overflow = 'hidden';
+
+                // Show/hide prev/next project buttons
+                lbPrevProject.style.display = currentTriggerIdx > 0 ? '' : 'none';
+                lbNextProject.style.display = currentTriggerIdx < triggers.length - 1 ? '' : 'none';
+            }
+
+            function closeLightbox() {
+                overlay.classList.remove('lb-active');
+                document.body.style.overflow = '';
+                lbImg.src = '';
+            }
+
+            triggers.forEach(function(el, idx) {
+                el.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    openLightbox(idx, 0);
+                });
+            });
+
+            lbClose.addEventListener('click', closeLightbox);
+            lbPrev.addEventListener('click', function() { showImage(current - 1); });
+            lbNext.addEventListener('click', function() { showImage(current + 1); });
+
+            lbPrevProject.addEventListener('click', function() {
+                if (currentTriggerIdx > 0) {
+                    openLightbox(currentTriggerIdx - 1, 0);
+                }
+            });
+
+            lbNextProject.addEventListener('click', function() {
+                if (currentTriggerIdx < triggers.length - 1) {
+                    openLightbox(currentTriggerIdx + 1, 0);
+                }
+            });
+
+            overlay.addEventListener('click', function(e) {
+                if (e.target === overlay) closeLightbox();
+            });
+
+            document.addEventListener('keydown', function(e) {
+                if (!overlay.classList.contains('lb-active')) return;
+                if (e.key === 'ArrowLeft')  showImage(current - 1);
+                if (e.key === 'ArrowRight') showImage(current + 1);
+                if (e.key === 'Escape')     closeLightbox();
+            });
+        })();
+    </script>
+
+</body>
+</html>
